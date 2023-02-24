@@ -1,16 +1,104 @@
 ﻿// ConsoleApplication1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
-
+//VECTOR 
+// ERASE - УДАЛИТЬ НЕНУЖНЫЙ ЭЛЕМЕНТ
+//
 #include <iostream> // стандартная библиотека с функциями
 #include <iomanip> /*Манипуляция вводами данных, ввод консоли*/
 #include <string> // объявлять переменную строкой
 #include <stdlib.h> //содержаться классы (тренеры, векторы)
+#include <cmath> //Возведение в степень
+#include <windows.h> //доступ к API
+#include <conio.h>
+#include <dos.h>
+#include <math.h>
+#include <vector>
 using namespace std; // рабочее пространство, чтобы не писать каждый раз std
+
+void printVect(vector<int> array) {
+    for (int i = 0; i < array.size(); i++)
+        cout << array[i] << " ";
+    cout << endl;
+}
+void printMinMax(int* array) {
+    for (int i = 0; i < 2 ; i++)
+        cout << array[i] << " ";
+}
+
+vector<int> sortUp(vector<int> array) {
+    int temp;
+    
+    for (int i = 0; i < array.size(); i++)
+        for (int j = 0; j < array.size(); j++) {
+            if (array[i] < array[j]) {
+                temp = array[j];
+                array[j] = array[i];
+                array[i] = temp;
+            }
+        }
+    
+    return array;
+}
+vector<int> sortDown(vector<int> array) {
+    int temp;
+    for (int i = 0; i < array.size(); i++)
+        for (int j = 0; j < array.size(); j++) {
+            if (array[i] > array[j]) {
+                temp = array[j];
+                array[j] = array[i];
+                array[i] = temp;
+            }
+        }
+    
+    return array;
+}
+int* minMax(vector<int> array) {
+    int max = INT_MIN, min = INT_MAX;
+    int local[2];
+    for (int i = 0; i < array.size(); i++) {
+        if (max < array[i]) {
+            max = array[i];
+        }if (min > array[i]) {
+            min = array[i];
+        }
+    }
+    //cin >> temp;
+    local[0] = max;
+    local[1] = min;
+    cout <<"min - " << local[0] << "\n" << local[1] << " \n";
+    
+    return local;
+}
+
+int* returnAr()
+{
+    int local[2];
+    local[0] = 1;
+    local[1] = 2;
+
+    return local;
+}
 
 int main() // главная функция
 {
+    SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);
     setlocale(LC_ALL, "Russian");
     srand(time(NULL));
+
+    vector<int> popa, lopa;
+    for (int i = 0; i < 10; i++)
+        popa.push_back(rand() % 100);
+    printVect(popa);
+    cout << endl;
+    lopa = sortUp(popa);
+    printVect(lopa);
+    cout << endl;
+    int* nar;
+    nar = minMax(lopa);
+    printMinMax(nar);
+   /* int* newArray;
+    newArray = minMax(array);*/
 #pragma region ДЗ
 
     //cout << "Melody!\n";
@@ -214,132 +302,55 @@ int main() // главная функция
          //    cout << "Eror\n";
          //}
 
-         //int num, one, two, three, four, five, six, third, sixth;
-         //cout << "Введите число счастливое число: ", cin >> num;
-         //if (num < 1000000 && num > 99999) {
-         //    one = num / 100000;
-         //    two = num / 10000 % 10;
-         //    three = num / 1000 % 10;
-         //    four = num / 100 % 10;
-         //    five = num / 10 % 10;
-         //    six = num % 10;
-         //    third = one + three + two;
-         //    sixth = four + five + six;
-         //    if (sixth == third) {
-         //        cout << "Ваше число счастливое! Congratulation)\n";
-         //    }
-         //    else {
-         //        cout << "Ваше число не счастливое((( Попробуйте ещё раз \n";
-         //    }
-         //}
-         //else {
-         //    cout << "Eror\n";
-         //}
+         /*int num, one, two, three, four, five, six, third, sixth;
+         cout << "Введите счастливое число: ", cin >> num;
+         if (num < 1000000 && num > 99999) {
+             one = num / 100000;
+             two = num / 10000 % 10;
+             three = num / 1000 % 10;
+             four = num / 100 % 10;
+             five = num / 10 % 10;
+             six = num % 10;
+             third = one + three + two;
+             sixth = four + five + six;
+             if (sixth == third) {
+                 cout << "Ваше число счастливое! Congratulation)\n";
+             }
+             else {
+                 cout << "Ваше число не счастливое((( Попробуйте ещё раз \n";
+             }
+         }
+         else {
+             cout << "Eror\n";
+         }*/
 
-         //int num, one, two, three, four;
-         //cout << "Введите четырехзначное число: ", cin >> num;
-         //
-         //    if (num < 10000 && num > 999) {
-         //        one = num / 1000;
-         //        two = num / 100 % 10;
-         //        three = num / 10 % 10;
-         //        four = num % 10;
-         //        cout << "Мы тут все понапутали, извините - " << two << one << four << three << endl;
-         //    }
-         //    else {
-         //        cout << "Eror\n";
-         //    }
+         /*int num, one, two, three, four;
+         cout << "Введите четырехзначное число: ", cin >> num;
+         
+             if (num < 10000 && num > 999) {
+                 one = num / 1000;
+                 two = num / 100 % 10;
+                 three = num / 10 % 10;
+                 four = num % 10;
+                 cout << "Мы тут все понапутали, извините - " << two << one << four << three << endl;
+             }
+             else {
+                 cout << "Eror\n";
+             }*/
 
-   /* int one, two, three, four, five, six, seven;
-    cout << "Введите семь чисел:\n", cin >> one, cin >> two, cin >> three, cin >> four, cin >> five, cin >> six, cin >> seven;
-    if (one == two && two == three && three == four && four == six && six == seven) {
-        cout << "Победа, все числа равны!\n";
+    /*const size_t size = 7;
+    int num[size], temp;
+    cout << "Введите семь чисел:\n";
+    for(int i = 0; i < size; i++){
+        cin >> num[i];
     }
-    else if (one > 0) {
-        if (one >= two) {
-            if (one >= three) {
-                if (one >= four) {
-                    if (one >= five) {
-                        if (one >= six) {
-                            if (one >= seven) {
-                                cout << one << " - Самое большое число\n";
-                            }
-                        }
-                        else if (six >= seven) {
-                            cout << six << " - Самое большое число\n";
-                        }
-                        else if (five >= six) {
-                            if (five >= seven) {
-                                cout << five << " - Самое большое число\n";
-                            }
-                        }
-                    }
-                    else if (five >= six) {
-                        if (five >= seven) {
-                            cout << five << " - Самое большое число\n";
-                        }
-                    }
-                }
-                else if (four >= five) {
-                    if (four >= six) {
-                        if (four >= seven) {
-                            cout << four << " - Самое большое число\n";
-                        }
-                    }
-                }
+    int max = num[0];
+    for (int i = 0; i < size; i++) {
+        if (max < num[i]){
+            max = num[i];
             }
-            else if (three >= four) {
-                if (three >= five) {
-                    if (three >= six) {
-                        if (three >= seven) {
-                            cout << three << " - Самое большое число\n";
-                        }
-                    }
-                }
-            }
-        }
-            if (two >= three) {
-                if (two >= four) {
-                    if (two >= four) {
-                        if (two >= five) {
-                            if (two >= six) {
-                                if (two > seven) {
-                                    cout << two << " - Самое большое число\n";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else if (three >= four) {
-                if (three >= five) {
-                    if (three >= six) {
-                        if (three >= seven) {
-                            cout << three << " - Самое большое число\n";
-                        }
-                    }
-                }
-            }
-            else if (four >= five) {
-                if (four >= six) {
-                    if (four >= seven){
-                        cout << four << " - Самое большое число\n";
-                    }
-                }
-            }
-            else if (five >= six) {
-                if (five >= seven) {
-                    cout << five << " - Самое большое число\n";
-                }
-            }
-            else if (six >= seven) {
-                cout << six << " - Самое большое число\n";
-            }
-            else {
-                cout << seven << " - Самое большое число\n";
-            }
-        }*/
-
+    }
+    cout << "\n" << max << endl;*/
 //int dis, dis1, fulldis, wei, fuel = 300, refueling;
 //cout << "Введите расстояние между пунктами А и В - ", cin >> dis;
 //cout << "Введите расстояние между пунктами B и С - ", cin >> dis1;
@@ -419,6 +430,195 @@ int main() // главная функция
     
 #pragma endregion
 
+#pragma region ДЗ 2
+//const size_t size = 4;
+//const size_t bag = 3;
+//double pizza[size]{ 4,5,4.5,5.5 }, drink[bag]{ 2,1.5,4 };
+//double sellSum = 0.8, sellDrink = 0.85, sumPizza=0, sumDrink=0, sum=0;
+//int input = 1, pizzaCount=1, drinkCount=1, howMuch, x=0;
+//string tavern[7]{"Маргарита        ","Сюзанна          ","Изабелла         ","Мадонна          ","Молочный коктейль","Фильтр-кофе      ","Фреш             "};
+////-------------------------------------------- Массив для чека. Узнал об этом от Мавлюда, сам долго додумывал бы
+//string check[15]; 
+//int check_how[15]; 
+//double check_price[15]; 
+//double check_sum[15];
+////--------------------------------------------
+//cout << "<3\t\t\t     ПИЦЦЕРИНА     \t\t\t<3\n";
+//cout << "|---------------------------------------------------------------|\n";
+//cout << "| \t\t*Каждая  5-ая пицца в ПОДАРОК!*\t\t\t|\n";
+//cout << "|   Маргарита\t   Сюзанна\tИзабелла\tМадонна\t\t|\n";
+//cout << "| \t*Более 3-ех напитков от 2$ буду со скидкой в 15%!*\t|\n";
+//cout << "| \tМолочный коктейль\tФильтр-кофе\tФреш\t\t|\n";
+//cout << "| *Скидка 20% от суммы заказа, если общая сумма больше 50$!!!*\t|\n";
+//cout << "|---------------------------------------------------------------|\n";
+//while (input != -1) {
+//    if (drinkCount > 2) {
+//        sumDrink *= 0.85;
+//    }
+//    if (sum + sumDrink > 50) {
+//        sum = (sumPizza + sumDrink) * 0.8;
+//    }
+//    else {
+//        sum = sumPizza + sumDrink;
+//    }
+//    if (pizzaCount > 4 || pizzaCount > 9) {
+//        check[x] = tavern[rand()%4];
+//        check_how[x] = 1;
+//        check_price[x] = 0;
+//        check_sum[x] = 0;
+//        x++;
+//    }
+//    cout << "Выберите заказ\n1 - Пицца\t2 - Напиток\t0 - Перейти к оплате\n";
+//    cin >> input;
+//    if (input == 1) {
+//        cout << "Маргарита - томатная куртизантка!\n";
+//        cout << "Сюзанна - увлажнит твои печали!\n";
+//        cout << "Изабелла - нежная и хрупкая!\n";
+//        cout << "Мадонна - жаркая, жгучая и ненасытная!\n";
+//        cout << "\nМаргарита - 4$ (#01)\tСюзанна - 5$ (#02)\nИзабелла - 4.5$ (#03)\tМадонна - 5.5$ (#04)\nВведите код продукта (Без решетки): ";
+//        cin >> input;
+//        switch (input) {
+//        case 01: {
+//            cout << "Состав: 2 вида томата и 3 вида сыра (Розовые томаты, Черри, Маасдам, Моцарелла, Тильзитер)\nВыберите количество: ", cin >> howMuch;
+//            pizzaCount *= howMuch;
+//            sumPizza += pizza[0]*howMuch;
+//            cout << "\nТекущая сумма составляет: " << sumPizza << "$" << endl;
+//            check[x] = tavern[0]; 
+//            check_how[x] = howMuch; 
+//            check_price[x] = pizza[0]; 
+//            check_sum[x] = pizza[0] * howMuch; 
+//            x++;
+//            break;
+//        }case 02: {
+//            cout << "Состав: 2 вида мяса и овощи гриль (Бекон, Ветчина, Болгарский перец, Черри, Цукини, Сельдерей, Моцарелла)\nВыберите количество: ", cin >> howMuch;
+//            pizzaCount *= howMuch;
+//            sumPizza += pizza[1]*howMuch;
+//            cout << "\nТекущая сумма составляет: " << sumPizza << "$" << endl;
+//            check[x] = tavern[1];
+//            check_how[x] = howMuch;
+//            check_price[x] = pizza[1];
+//            check_sum[x] = pizza[1] * howMuch;
+//            x++;
+//            break;
+//        }case 03: {
+//            cout << "Состав: Овощное ассорти, пряный сыр и любовь (Мариннованые огурчики, Оливки, Авокадо, Нори, Сыр с Пажитныком, Сливочный крем)\nВыберите количество : ", cin >> howMuch;
+//            pizzaCount *= howMuch;
+//            sumPizza += pizza[2] * howMuch;
+//            cout << "\nТекущая сумма составляет: " << sumPizza << "$" << endl;
+//            check[x] = tavern[2];
+//            check_how[x] = howMuch;
+//            check_price[x] = pizza[2];
+//            check_sum[x] = pizza[2] * howMuch;
+//            x++;
+//            break;
+//        }case 04: {
+//            cout << "Состав: Мяссное ассорти с остринкой (Курица, Говядина, Бекон, Чили, Маринованные перчики, Красный лук, Кисло-сладкий соус, Моцарелла)\nВыберите количество: ", cin >> howMuch;
+//            pizzaCount *= howMuch;
+//            sumPizza += pizza[3]*howMuch;
+//            cout << "\nТекущая сумма составляет: " << sumPizza <<"$" << endl;
+//            check[x] = tavern[3];
+//            check_how[x] = howMuch;
+//            check_price[x] = pizza[3];
+//            check_sum[x] = pizza[3] * howMuch;
+//            x++;
+//            break;
+//        }
+//        }
+//    }
+//    else if (input == 2) {
+//        cout << "\nМолочный коктейль - 2$ (#10)\tФильтр-кофе - 1.5$ (#20)\tФреш - 4$ (#30)\nВведите код продукта (Без решетки): \n";
+//        cin >> input;
+//        switch (input) {
+//        case 10: {
+//            cout << "В сочетании с Изабеллой станет приятным времяпрепровождением!\nВыберите количество:\n", cin >> howMuch;
+//            drinkCount += howMuch;
+//            sumDrink += drink[0] * howMuch;
+//            cout << "\nТекущая сумма составляет: " << sumPizza +sumDrink << "$" << endl;
+//            check[x] = tavern[4];
+//            check_how[x] = howMuch;
+//            check_price[x] = drink[0];
+//            check_sum[x] = drink[0] * howMuch;
+//            x++;
+//            break;
+//        }case 20: {
+//            cout << "Сюзанна готова разделить с тобой эту трапезу!\nВыберите количество:\n", cin >> howMuch;
+//            drinkCount += howMuch;
+//            sumDrink += drink[1] * howMuch;
+//            cout << "\nТекущая сумма составляет: " << sumPizza + sumDrink << "$" << endl;
+//            check[x] = tavern[5];
+//            check_how[x] = howMuch;
+//            check_price[x] = drink[1];
+//            check_sum[x] = drink[1] * howMuch;
+//            x++;
+//            break;
+//        }case 30: {
+//            cout << "Маргарита и Мадонна идеально подходят к этому выбору!\nВыберите количество:\n", cin >> howMuch;
+//            drinkCount += howMuch;
+//            sumDrink += drink[2] * howMuch;
+//            cout << "\nТекущая сумма составляет: " << sumPizza + sumDrink << "$" << endl;
+//            check[x] = tavern[6];
+//            check_how[x] = howMuch;
+//            check_price[x] = drink[2];
+//            check_sum[x] = drink[2] * howMuch;
+//            x++;
+//            break;
+//        }
+//        }
+//    }
+//    else if (input < 0 && input > 2) {
+//        cout << "Eror\n";
+//    }
+//    else if (input == 0) {
+//        
+//        for (int i = 0; i < x; i++) {
+//            cout << i + 1 << ". " << check[i] << "\t-\t" << check_how[i] << "\t-\t" << check_price[i] << " $\t-\t" << check_sum[i] << " $\n";
+//        }
+//        cout << "______________________________________________________________________\n";
+//        cout << "К оплате: " << sum << " $\nСпасибо за покупку! Ждем вас снова!\n";
+//        
+//    }  
+//
+//}
+#pragma endregion
+#pragma region ДЗ 2.0
+
+//string manager[3]{ "Йохан   ","Торбьорн","Лилит   " };
+//double level[3];
+//int sum[3];
+//int prem[3]{ 0,0,0 };
+//int zp = 200, temp;
+//for (int i = 0; i <= 2; i++) {
+//    cout << manager[i] << "\nВведите уровень продаж сотрудника\n", cin >> sum[i];
+//    if (sum[i] < 500 && sum[i] >  0) {
+//        level[i] = 0.03;
+//    }
+//    else if (sum[i] > 499 && sum[i] < 1000) {
+//        level[i] = 0.05;
+//    }
+//    else {
+//        level[i] = 0.08;
+//    }
+//}
+//if (sum[0] > sum[1]) {
+//    temp = sum[0];
+//    prem[0] += 200;
+//}
+//else {
+//    prem[1] += 200;
+//    temp = sum[1];
+//    prem[0] *= 0;
+//}
+//if (sum[2] > temp) {
+//    prem[2] += 200;
+//    prem[0] *= 0;
+//    prem[1] *= 0;
+//}
+//for (int i = 0; i <= 2; i++) {
+//    
+//    cout << manager[i] << " зарплата - " << (zp + sum[i] * level[i]) + prem[i]<< " $" << endl;
+//}
+
+#pragma endregion
 #pragma region Работа с текстом
   //      sheep += myint; тоже самое что и sheep = sheep + myint;
   // cout <<"To be, or nit ti be: that is the question:\nWheather \'tis nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of trouble,\nAnd by opposing end them?\nWilliam Shakespeare\n\n";
@@ -1037,6 +1237,109 @@ int main() // главная функция
 //cout << (q > w  ? q <e ? q :  q  : w) << " - ПРОВЕРЯЙ" << endl;
 //
 // cout << ((q > w) && (q < e) ? q : w) << endl;
+//int a;
+//cin >> a;
+//for (int i = 0; i < 8; i++) {
+//    cout << pow(a, i) << " ";
+//}
+
+//HANDLE hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
+//SetConsoleTextAttribute(hwnd, 2);
+//cout << "ПРИВЕТИКИ ПИСТОЛЕТИКИ";
+//int a;
+//cin >> a;
+//for (int i = 0; i <= a; i++) {
+//    cout << i;
+//}
+//int a = 0,b,c;
+//float dol, euro, rub;
+//while (a != 10) {
+//    cout << "Выберите валюту которую будете менять\n1 - Dollar\n2 - Euro\n3 - Рубли\n0 - Закончить конвертирование\n";
+//    cin >> a;
+//    if (a > 0 && a < 4) {
+//        switch (a) {
+//        case 1: {
+//            cout << "Выберите валюту на которую будете менять\n1 - Euro\n2 - Рубли\n";
+//            cin >> b;
+//            if (b > 0 && b < 3) {
+//                cout << "Укажите сумму для конвертации: ", cin >> c;
+//                switch (b) {
+//                case 1: {
+//                    euro = c * 35 / 40;
+//                    cout << "Ваша сумма составляет - " << euro << endl;
+//                  
+//                }case 2: {
+//                    rub = c * 35;
+//                    cout << "Ваша сумма составляет - " << rub << endl;
+//                    
+//                }default :{
+//                    cout << endl;
+//                }
+//                }
+//            }
+//            else {
+//                cout << "Eror\n";
+//            }
+//                break;
+//        } case 2: {
+//            cout << "Выберите валюту на которую будете менять\n1 - Dollar\n2 - Рубли\n";
+//            cin >> b;
+//            if (b > 0 && b < 3) {
+//                cout << "Укажите сумму для конвертации: ", cin >> c;
+//                switch (b) {
+//                case 1: {
+//                    dol = c * 40 / 35;
+//                    cout << "Ваша сумма составляет - " << dol << endl;
+//                    
+//                }case 2: {
+//                    rub = c * 40;
+//                    cout << "Ваша сумма составляет - " << rub << endl;
+//                    
+//                }default: {
+//                    cout << endl;
+//                }
+//                }
+//            }
+//            else {
+//                cout << "Eror\n";
+//            }
+//            break;
+//        }case 3: {
+//            cout << "Выберите валюту на которую будете менять\n1 - Dollar\n2 - Euro\n";
+//            cin >> b;
+//            if (b > 0 && b < 3) {
+//                cout << "Укажите сумму для конвертации: ", cin >> c;
+//                switch (b) {
+//                case 1: {
+//                    dol = c / 35;
+//                    cout << "Ваша сумма составляет - " << dol << endl;
+//                    
+//                }case 2: {
+//                    euro = c / 40;
+//                    cout << "Ваша сумма составляет - " << euro << endl;
+//                    
+//                }default: {
+//                    cout << endl;
+//                }
+//                }
+//            }
+//            else {
+//                cout << "Eror\n";
+//            }
+//            break;
+//        }
+//        }
+//    }
+//    else if (a == 0) {
+//        exit(0);
+//    }
+//    else {
+//        cout << "Выбранной валюты не существует!\n";
+//    }
+//}
+
+
+
 #pragma endregion
 
 #pragma region 28.12 Работа на паре
@@ -1187,40 +1490,1036 @@ int main() // главная функция
 //    }
 //}
 
-int a, b, c;
-int easy;
-int easy1;
-int middle;
-int middle1;
-int high;
-int high1;
 
-while (cout << "Выберите уровень сложности от 1 до 3:\nЕсли хотите закончить введите 0\n", cin >> a) {
-    if (a == 1) {
 
-        easy = 1 + rand() % 10;
-        easy1 = 1 + rand() % 10;
-        while  {
-            c = easy * easy1;
-            cout << "Посчитайте произведение: \n" << easy << " * " << easy1 << endl;
-            cin >> b;
-        }
-    }
-}
-   /* else if (a == 2) {
+#pragma region Task 14
+//int a, b, n;
+//int user, l = 0;
+//
+//cout << "Контрольный тест по таблице умножения. Выберите сложность.\n"
+//<< "1 - легко " << "2 - нормально " << "3 - сложно\n";
+//cin >> n;
+//for (int i = 0; i < 5; i++)
+//{
+//    switch (n)
+//    {
+//    case 1:
+//    {
+//        a = 1 + rand() % 10;
+//        b = 1 + rand() % 10;
+//        break;
+//    }
+//    case 2:
+//    {
+//        a = 10 + rand() % 100;
+//        b = 10 + rand() % 100;
+//        break;
+//    }
+//    case 3:
+//    {
+//        a = 100 + rand() % 1000;
+//        b = 100 + rand() % 1000;
+//        break;
+//    }
+//    }
+//    cout << a << "*" << b << "=", cin >> user;
+//    if (user == a * b)
+//    {
+//        cout << "Верно!\n";
+//        l++;
+//    }
+//    else
+//    {
+//        cout << "Ошибка!\n";
+//    }
+//}
+//cout << "Ваш результат: " << l << "/5";
+#pragma endregion
+#pragma region Task 15
+//Написать имитацию кассового аппарата для магазина, торгующего новогодними товарами, Кассир должен выбрать товар из списка, ввести его количество затем выбрать следующий товар.
+//По завершению ввода вывести на экран всю сумму покупки. Предусмотреть наличие скидки. В писке товаров должно быть не меньше 4-ех товаров, должна отображаться их цена. Предусмотреть неправильно вводимые данные.
+//string promokod = "SELL", promo, stop = "STOP";
+//int sum,sumend = 0,  pos = 1, amount;
+//float sell = 0.9, sell1=0.1;
+//int pos1 = 70, pos2 = 30, pos3 = 50, pos4 = 80, pos5 = 90, pos6 = 35;
+//int countPos1 = 0, countPos2 = 0, countPos3 = 0, countPos4 = 0, countPos5 = 0, countPos6 = 0;
+//cout << "-----------------------------------------------------\n";
+//cout << "Выберите товар:\n";
+//cout << "Елка - 1\t\tГирлянды - 2\t\tФейрверки - 3\nМягкая игрушка - 4\tМишура  -  5\tЕлочные украшения - 6\n";
+//cout << "-----------------------------------------------------\n";
+//cout << "Для того чтобы закончить покупки выберите - 0\n";
+// while (pos != 10) {
+//    cin >> pos;    
+//    if (pos >=0 && pos<=6) {
+//        cout << "Вы выбрали - " << pos << endl;
+//        if (pos >= 1 && pos <= 6) {
+//            cout << "Введите количество - ", cin >> amount;
+//            switch (pos) {
+//            case 1: {
+//                sum = amount * pos1;
+//                sumend += sum;
+//                cout << "\nТекущая сумма: " << sumend << endl;
+//                countPos1++;
+//                countPos1 *= amount;
+//                break; }
+//            case 2: {
+//                sum = amount * pos2;
+//                sumend += sum;
+//                cout << "\nТекущая сумма: " << sumend << endl;
+//                countPos2++;
+//                countPos2 *=amount;
+//                break; }
+//            case 3: {
+//                sum = amount * pos3;
+//                sumend += sum;
+//                cout << "\nТекущая сумма: " << sumend << endl;
+//                countPos3++;
+//                countPos3 *= amount;
+//                break; }
+//            case 4: {
+//                sum = amount * pos4;
+//                sumend += sum;
+//                cout << "\nТекущая сумма: " << sumend << endl;
+//                countPos4++;
+//                countPos4 *= amount;
+//                break; }
+//            case 5: {
+//                sum = amount * pos5;
+//                sumend += sum;
+//                cout << "\nТекущая сумма: " << sumend << endl;
+//                countPos5++;
+//                countPos5 *= amount;
+//                break; }
+//
+//            case 6: {
+//                sum = amount * pos6;
+//                sumend += sum;
+//                cout << "\nТекущая сумма: " << sumend << endl;
+//                countPos6++;
+//                countPos6 *= amount;
+//                break; }
+//
+//            default: {
+//                cout << "Eror\n";
+//                break;
+//            }
+//            }
+//        }
+//        else if (pos <= -1 && pos >= 7) {
+//            cout << "Eror\n";
+//        }
+//        else if (pos == 0) {
+//            cout << "Введите промокод: ", cin >> promo;
+//            if (promo == promokod) {
+//                sumend *= sell;
+//                cout << "\n-----------------------------------------------------\n";
+//                cout << "Елка\t\t\t\t\t" << countPos1 <<" x "<<countPos1*pos1<<" (-"<< countPos1 * pos1*sell1 <<")" << endl;
+//                cout << "Гирлянда\t\t\t\t" << countPos2 << " x " << countPos2 * pos2 << " (-" << countPos2 * pos2 * sell1 << ")" << endl;
+//                cout << "Фейрверки\t\t\t\t" << countPos3 << " x " << countPos3 * pos3 << " (-" << countPos3 * pos3 * sell1 << ")" << endl;
+//                cout << "Мягкая игрушка\t\t\t\t" << countPos4 << " x " << countPos4 * pos4 << " (-" << countPos4 * pos4 * sell1 << ")" << endl;
+//                cout << "Мишура\t\t\t\t\t" << countPos5 << " x " << countPos5 * pos5 << " (-" << countPos5 * pos5 * sell1 << ")" << endl;
+//                cout << "Елочные украшения\t\t\t" << countPos6 << " x " << countPos6 * pos6 << " (-" << countPos6 * pos6 * sell1 << ")" << endl;
+//                cout << "-----------------------------------------------------\n";
+//                cout << "Сумма к оплате с учетом скидки: " << sumend << endl;
+//                exit(0);
+//            }
+//            else if (promo == stop) {
+//                cout << "Сумма к оплате: " << sumend << endl;
+//                exit(0);
+//            }
+//            else {
+//                cout << "Промокод несуществет!\n";
+//            }
+//        }
+//    }
+//    else {
+//        cout << "Такой позиции нет!\n";
+//    }
+//}
 
-    }
-    else if (a == 3) {
+#pragma endregion
 
-    }
-    else if (a == 0) {
-        cout << "Как скажете\n";
-        break;
-    }
-}*/
+#pragma region TASK 16
+
+
+
 
 
 
 #pragma endregion
+
+
+
+
+#pragma endregion
+
+
+
+#pragma region
+////Объявление массива
+//const size_t size = 5;
+//int values[size];
+////Заполнение массива
+//values[0] = 1;
+//values[1] = 2;
+//values[2] = 3;
+////заполнение при создании
+//int newValues[size]{ 1, 2, 3, 4, 5 };
+////ввод массива
+//for (int i = 0; i < size; i++) {
+//    cin >> values[i];
+//}
+////вывод массива
+//for (int i = 0; i < size; i++) {
+//    cout << values[i];
+//}cout << values;
+
+//int money, sum = 0;
+//const size_t size = 6;
+//string values[size]{ "Январь","Февраль","Март","Апрель","Май","Июнь" };
+//const size_t size1 = 6;
+//int values1[size1];
+//for (int i = 0; i < size1; i++) {
+//    while (values1[i] < 0)
+//    cout << "Введите прибыль за "<< values[i]<<" : ", cin >> values1[i];
+//        sum += values1[i]; 
+//    } cout << "Общая прибыль составляет: " << sum << endl;
+
+//const size_t size = 5;
+//int values[size] = { 0, 1, 2, 3, 4 };
+//for (int i = 4; i >= 0; i--) {
+//    cout << values[i];
+//}
+
+//int money, sum = 0, max = 0,min = 0;
+//string min1, max1;
+//const size_t size = 12;
+//string values[size]{ "Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" };
+//const size_t size1 = 12;
+//int values1[size1];
+//for (int i = 0; i < size1; i++) {
+//    while (values1[i] < 0)
+//        cout << "Введите прибыль за "<< values[i]<<" : ", cin >> values1[i];
+//    sum += values1[i]; 
+//        if (values1[i] > max) {
+//            max = values1[i];
+//            min = max;
+//            max1 = values[i];
+//
+//        }if (values1[i] < min) {
+//            min = values1[i];
+//            min1 = values[i];
+//        }
+//    } 
+//cout << "Общая прибыль составляет: " << sum << endl;
+//cout << "Максимальная прибыль за "<< max1<<": " << max << endl;
+//cout << "минимальная прибыль за "<< min1<<": " << min << endl;
+
+
+//const size_t size = 6;
+//const size_t size1 = 6;
+//const size_t ball = 12;
+//int min[size], max[size1], full[ball];
+//for (int i = 0; i < size; i++) {
+//    min[i] = 1 + rand() % 100;
+//    }
+//
+//int minSUP;
+//for (int i = 0; i < size;i++){
+//    for (int j = 0; j < size; j++) {
+//
+//        if (min[j] > min[i]) {
+//            minSUP = min[j];
+//            min[j] = min[i];
+//            min[i] = minSUP;
+//        }
+//    }
+//}
+//for (int i = 0; i < size; i++)
+//    full[i] = min[i];
+//
+//for (int i = 0; i < size; i++)
+//    cout << min[i] << " ";
+//
+//cout << endl;
+//for (int i = 0; i < size1; i++) {
+//    max[i] = 1 + rand() % 100;
+//}
+//for (int i = size1; i >= 0; i--) {
+//    for (int j = size1; j >= 0; j--) {
+//
+//        if (max[j] > max[i]) {
+//            minSUP = max[i];
+//            max[i] = max[j];
+//            max[j] = minSUP;
+//        }
+//    }
+//}
+//for (int i = 0; i < size1; i++)
+//    cout << max[i] << " ";
+//for (int i = 0; i < size1; i++) {
+//    full[i + size1] = max[i];
+//}
+//cout << endl;
+//
+//for (int i = 0; i < ball; i++) {
+//    for (int j = 0; j < ball; j++) {
+//
+//        if (full[j] > full[i]) {
+//            minSUP = full[j];
+//            full[j] = full[i];
+//            full[i] = minSUP;
+//        }
+//    }
+//}
+//for(int i = 0; i < ball;i++)
+//cout << full[i] << " ";
+
+
+
+//const size_t size = 30;
+//const size_t plus = 30;
+//int numb[size], minSUP, null=-1, all[plus];
+//for (int i = 0; i < size; i++) {
+//    numb[i] = rand() % 2;
+//    cout << numb[i] << " ";
+//    all[i] = rand() % 2;
+//}
+//for (int i = size; i >= 0; i--) {
+//    for (int j = size; j >= 0; j--) {
+//
+//        if (numb[j] > numb[i]) {
+//        minSUP = numb[i];
+//        numb[i] = numb[j];
+//        numb[j] = minSUP;
+//        }
+//    }
+//}
+//cout << endl;
+//for (int i = 0; i < size; i++) {
+//    if (numb[i] == 0) {
+//        numb[i] = null;
+//    }
+//    cout << numb[i] << " ";
+//}
+//int size3 = 0;
+//for (int i = 0; i < size; i++) {
+//    if (numb[i] < 0) {
+//        size3++;
+//    }
+//   
+//}
+//
+//memcpy(all, numb, sizeof(numb - size3));
+//cout << endl;
+//for (int i = 0; i < plus; i++) {
+//    cout << all[i] << " ";
+//}
+//int values =
+//int values6 =
+//memcpy(values, valuesб, sizeof(values6); ///КУДА КОПИРУЕМ, ОТКУДА БЕРЕМ, РАЗМЕР МАССИВА
+#pragma endregion
+#pragma region TASK 21 МАТРИЦА
+
+//const size_t size = 5;
+//const size_t size2 = 5;
+//int mass[size][size2];
+//for (int i = 0; i < size; i++)
+//{
+//    for (int p = 0; p < size; p++)
+//    {
+//        mass[i][p] = rand() % 2;
+//        if (i == p)
+//        {
+//            mass[i][p] = 0;
+//        }
+//    }
+//}
+//cout << "\n";
+//cout << "\t";
+///*string citys[5] {"a", ""}*/
+//cout << "  A B C D E\n";
+//for (int i = 0; i < size; i++)
+//{
+//    if (i == 0)
+//    {
+//        cout << "\tA";
+//    }
+//    else if (i == 1)
+//    {
+//        cout << "B";
+//    }
+//    else if (i == 2)
+//    {
+//        cout << "C";
+//    }
+//    else if (i == 3)
+//    {
+//        cout << "D";
+//    }
+//    else if (i == 4)
+//    {
+//        cout << "E";
+//    }
+//
+//    for (int p = 0; p < size2; p++)
+//    {
+//
+//        cout << " " << mass[i][p];
+//    }
+//    cout << endl;
+//    cout << "\t";
+//}
+//cout << "Все доступные города\n";
+//for (int i = 0; i < size; i++)
+//{
+//
+//    for (int p = 0; p < size2; p++)
+//    {
+//        if (mass[i][p] == 1)
+//        {
+//            if (i == 0)
+//            {
+//                cout << "Из города А в ";
+//                if (p == 0)
+//                {
+//                    cout << "A\n";
+//                }
+//                else if (p == 1)
+//                {
+//                    cout << "B\n";
+//                }
+//                else if (p == 2)
+//                {
+//                    cout << "C\n";
+//                }
+//                else if (p == 3)
+//                {
+//                    cout << "D\n";
+//                }
+//                else if (p == 4)
+//                {
+//                    cout << "E\n";
+//                }
+//            }
+//            else if (i == 1)
+//            {
+//                cout << "Из города В в ";
+//                if (p == 0)
+//                {
+//                    cout << "A\n";
+//                }
+//                else if (p == 1)
+//                {
+//                    cout << "B\n";
+//                }
+//                else if (p == 2)
+//                {
+//                    cout << "C\n";
+//                }
+//                else if (p == 3)
+//                {
+//                    cout << "D\n";
+//                }
+//                else if (p == 4)
+//                {
+//                    cout << "E\n";
+//                }
+//            }
+//            else if (i == 2)
+//            {
+//                cout << "Из города С в ";
+//                if (p == 0)
+//                {
+//                    cout << "A\n";
+//                }
+//                else if (p == 1)
+//                {
+//                    cout << "B\n";
+//                }
+//                else if (p == 2)
+//                {
+//                    cout << "C\n";
+//                }
+//                else if (p == 3)
+//                {
+//                    cout << "D\n";
+//                }
+//                else if (p == 4)
+//                {
+//                    cout << "E\n";
+//                }
+//            }
+//            else if (i == 3)
+//            {
+//                cout << "Из города D в ";
+//                if (p == 0)
+//                {
+//                    cout << "A\n";
+//                }
+//                else if (p == 1)
+//                {
+//                    cout << "B\n";
+//                }
+//                else if (p == 2)
+//                {
+//                    cout << "C\n";
+//                }
+//                else if (p == 3)
+//                {
+//                    cout << "D\n";
+//                }
+//                else if (p == 4)
+//                {
+//                    cout << "E\n";
+//                }
+//            }
+//            else if (i == 4)
+//            {
+//                cout << "Из города Е в ";
+//                if (p == 0)
+//                {
+//                    cout << "A\n";
+//                }
+//                else if (p == 1)
+//                {
+//                    cout << "B\n";
+//                }
+//                else if (p == 2)
+//                {
+//                    cout << "C\n";
+//                }
+//                else if (p == 3)
+//                {
+//                    cout << "D\n";
+//                }
+//                else if (p == 4)
+//                {
+//                    cout << "E\n";
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+#pragma endregion НЕ ЗАКОНЧЕНО
+
+#pragma region TASK 1.
+//int sec, hour, day, min, help;
+//cout << "Input time: ", cin >> sec;
+//day = sec / 3600 / 24;
+//hour = sec / 3600 % 24;
+//min = sec / 60 % 60;
+//sec = sec % 60;
+//cout << day << " - day " << hour << " - hour " << min << " - min " << sec << " - sec\n";
+
+//int sec, day, min, hour, help = 1;
+//while (help != 0) {
+//    cout << "Введите секунды: ", cin >> sec;
+//    cout << "Во что их перевести?\n1. Дни\n2. Часы\n3. Минуты\n0. Закончить конвертацию\n*Введите номер варианта*\n", cin >> help;
+//    if (help == 1) {
+//        day = sec / 3600 / 24;
+//        if (day == 1) {
+//            cout << day << " день\n";
+//        }else if (day % 10 > 1 && day % 10 < 5) {
+//            cout << day << " дня\n";
+//        }
+//        else {
+//            cout << day << " дней\n";
+//        }
+//    }if (help == 2) {
+//        hour = sec / 3600;
+//        if ( hour%10 == 1) {
+//            cout << hour << " час\n";
+//        }
+//        else if (hour % 10 > 1 && hour % 10 < 5) {
+//            cout << hour << " часа\n";
+//        }
+//        else {
+//            cout << hour << " часов\n";
+//        }
+//    }if (help == 3) {
+//        min = sec / 60;
+//        if (min == 1) {
+//            cout << min << " минута\n";
+//        }
+//        else if (min > 1 && min < 5) {
+//            cout << min << " минуты\n";
+//        }
+//        else {
+//            cout << min << " минут\n";
+//        }
+//    }if (help == 0) {
+//        cout << "Пока пока";
+//        exit(0);
+//    }
+//    if (help < 0 || help > 10000000) {
+//        cout << "Eror\n";
+//    }
+//}
+//
+// 
+// 
+//const size_t size = 10;
+//const size_t size1 = 10;
+//int mass[size], end[size1], help = 1, min = 0, max = 0, temp;
+//cout << "Массив. Выберите заполнение?\n1 - Вручную\n2 - Автоматически\n0 - Закончить заполнение\n";
+//while (help != 0) {
+//    cout<<"Введите - ", cin >> help;
+//    if (help == 1) {
+//        cout << "Заполните массив\n";
+//        for (int i = 0; i < size; i++) {
+//            cin >> mass[i];
+//        }
+//    }
+//    else if (help == 2) {
+//        for (int i = 0; i < size; i++) {
+//            mass[i] = -100 + (rand() % (100 - (-100) + 1));
+//           
+//        }
+//    }
+//    else if (help >2 || help <0) {
+//        cout << "Eror\n";
+//    }
+//}
+//
+////по убыванию чтобы нули в конец
+////for (int i = size; i >= 0; i--) {
+////    for (int j = size; j >= 0; j--) {
+////        if (mass[j] > mass[i]) {
+////            help = mass[i];
+////            mass[i] = mass[j];
+////            mass[j] = help;
+////        }
+////        if (mass[j] == 0) {
+////            temp = mass[i];
+////            mass[i] = mass[j];
+////            mass[j] = temp;
+////        }
+////    }
+////}
+//for (int i = 0; i < size; i++) {
+//
+//    cout << mass[i] << " ";
+//
+//}
+//// по возрастанию не учитывая нули
+//for (int i = 0; i < size; i++) {
+//    for (int j = 0; j < size; j++) {
+//        
+//        
+//        if (mass[j] > mass[i]) {
+//            help = mass[j];
+//            mass[j] = mass[i];
+//            mass[i] = help;
+//        } if (mass[j] == 0) {
+//            temp = mass[i];
+//            mass[i] = mass[j];
+//            mass[j] = temp;
+//        }
+//    }
+//}
+//
+//min = INT_MAX;
+//max = INT_MIN;
+//for (int i = 0; i < size; i++) {
+//    if (mass[i] != 0) {
+//        if (mass[i] < min) {
+//            min = mass[i];
+//        } if (mass[i] > max) {
+//            max = mass[i];
+//        }
+//    }
+//}
+//
+//cout << endl << endl;
+//    for (int i = 0; i < size; i++) {
+//        
+//            cout << mass[i] << " ";
+//        
+//    }
+//
+//cout << endl;
+//cout << min << " - минимальное\n";
+//cout << max << " - максимально\n";
+//cout << "The END\n";
+#pragma endregion
+
+#pragma region TASK 10.02
+//const size_t size = 10;
+//int one[size], two[size], three[size], a = 1, temp[size];
+//cout << "Вручную - 1\nАвтоматически - 2\n";
+//while (a != 0) {
+//    cout << "Введите - ", cin >> a;
+//    if (a == 1) {
+//        cout << "1 массив\n";
+//        for (int i = 0; i < size; i++) {
+//            cin >> one[i];
+//        }
+//        cout << "2 массив\n";
+//        for (int i = 0; i < size; i++) {
+//            cin >> two[i];
+//        }
+//    }
+//    else if (a == 2) {
+//        for (int i = 0; i < size; i++) {
+//            one[i] = rand() % 10;
+//            two[i] = rand() % 10;
+//
+//        }
+//        for (int i = 0; i < size; i++) {
+//            cout << one[i] << " ";
+//        }
+//        cout << endl;
+//        for (int i = 0; i < size; i++) {
+//            cout << two[i] << " ";
+//        }
+//    }
+//    else {
+//        cout << "Eror\n";
+//    }
+//}
+//for (int i = 0; i < size; i++) {
+//    for (int j = 0; j < size; j++) {
+//        if (one[i] == two[j]) {
+//            temp[j] = one[i];
+//            cout << temp[j] << " ";
+//        }
+//    }
+//}
+//for (int i = 0; i < size; i++) {
+//    for (int j = 0; j < size; j++) {
+//        if (temp[i] != three[j]) {
+//            three[i] = three[j];
+//        }
+//    }
+//}
+//for (int i = 0; i < size; i++) {
+//    
+//
+//    if (three[i] > 0) {
+//        
+//        cout << three[i]<<" ";
+//    }
+//}
+#pragma endregion
+
+#pragma region 06.01
+
+//int a, sum = 0;
+//cout << "Введите нижний порог целых чисел, чтобы вычислить их сумму до 500\n", cin >> a;
+//while (a > 501) 
+//    cout << "Eror\n", cin >> a;
+//
+//for (int i = a; i < 501; i++)
+//    sum += i;
+//cout << "\nСумма целых чисел равна - " << sum;
+
+//int x, y, work;
+//cout << "Введите число, которое возведете в степень - ", cin >> x;
+//while (x == 0)
+//cout << "Eror\n", cin >> x;
+//cout << "Введите число, которое будет степенью - ", cin >> y;
+//
+//cout <<"\n"<< pow(x, y) << " - Ваш ответ\n";
+
+//double midleSum=0, temp;
+//for (int i = 0; i < 1001; i++)
+//    midleSum += i;
+//cout << "Среднее арифметическое чисел от 1 до 1000 - " << midleSum / 1000;
+
+
+//int a, work = 1;
+//cout << "Введите нижний порог целых чисел, чтобы вычислить их произведение до 20\n", cin >> a;
+//while (a < 1 || a >20) 
+//    cout << "Eror\n", cin >> a;
+//for (int i = a; i < 21; i++)
+//    work *= i;
+//cout << "\nПроизведение целых чисел равно : " << work;
+
+//const size_t size = 10;
+//int one[size], a, work;
+//for (int i = 0; i < size; i++)
+//    one[i] = i;
+//cout << "Введите число, для таблицы умножения - ", cin >> a;
+//while (a < 0 || a > 9)
+//cout << "\nEror\n", cin >> a;
+//for (int i = 1; i < size; i++)
+//    cout << one[a] << " x " << i << " = " << one[a] * i << endl;
+
+#pragma endregion
+
+#pragma region TASK 05.01
+
+//int det;
+//char a;
+//cout << "Введите символ - ", cin >> a;
+//det = a;
+//if (det >= 60 && det <= 90)
+//cout << "Заглавная буква\n";
+//else if (det >= 97 && det <= 122)
+//cout << "Строчная буква\n";
+//else if (det >= 48 && det <= 57)
+//cout << "Цифра\n";
+//else if (det >= 44 && det <= 46 || det == 33 || det == 58 || det == 59 || det == 63)
+//cout << "Знак препинания\n";
+//else
+//cout << "Неизвестный знак\n";
+
+
+//int callMin, meg = 2, mtc = 2.5, yota = 3, one, two;
+//cout << "С какого оператора будет звонок?\n1. - Мегафон\n2. - МТС\n3. - YOTA\n", cin >> one;
+//cout << "\nНа какой оператор будет звонок?\n1. - Мегафон\n2. - МТС\n3. - YOTA\n", cin >> two;
+//cout << "\nСколько минут будет длиться звонок?\n", cin >> callMin;
+//if (one == two) {
+//    cout << "Звонок бесплатный\n";
+//}
+//else if (one == 1) {
+//    cout << "Стоимость звонка - " << callMin * meg << endl;
+//}else if (one == 2) {
+//    cout << "Стоимость звонка - " << callMin * mtc << endl;
+//}else if (one == 3) {
+//    cout << "Стоимость звонка - " << callMin * yota << endl;
+//}
+//else {
+//    cout << "Eror\n";
+//}
+
+
+//int zp, string, out, change=1;
+//cout << "Выберите одно из 3\n1. Желаемый доход Васи и количество опозданий. Узнать кол-во строк кода\n2. Сколько раз можно опоздать, в зависимости от строк кода и желаемого дохода" << endl;
+//cout << "3. Введите кол-во строк и кол-во опозданий. Узнать зарплаты Васи\n0. Завершить операции\n";
+//while (change != 0) {
+//    cin >> change;
+//    switch (change) {
+//    case 1: {
+//        cout << "\nВведите желаемый доход - ", cin >> zp;
+//        cout << "Введите количество опозданий - ", cin >> out;
+//        out /= 3 * 20;
+//        string = (zp + out) * 2;
+//        cout << "Количество строк, которые нужно написать с учетом опозданий - " << string;
+//    }case 2: {
+//
+//    }case 3: {
+//
+//    }
+//    }
+//}
+
+#pragma endregion
+
+#pragma region ДЗ 08.02
+
+//const size_t size = 10;
+//int mass[size];
+//
+//for (int i = 0; i < size; i++) {
+//    mass[i] = rand() % 10;
+//}
+//int min = mass[0], max = mass[0];
+//
+//for (int i = 0; i < size; i++) {
+//    if (max < mass[i]) {
+//        max = mass[i];
+//    }
+//    if (min > mass[i]) {
+//        min = mass[i];
+//    }
+//}
+//for (int i = 0; i < size; i++)
+//    cout << mass[i] << " ";
+//
+//cout << "\n" << min << " - минимальное\n" << max << " - максимальное";
+
+//const size_t size = 10;
+//int mass[size], a=1, b, s = 0, level;
+//while (a != 0) {
+//    cout << "Введите диапазон,\nот - ", cin >> a;
+//    cout << "до - ", cin >> b;
+//    if (a > b) {
+//        cout << "Eror\n";
+//    }
+//    if (a < b) {
+//        
+//        break;
+//    }
+//}
+//
+//for (int i = 0; i < size; i++) 
+//    mass[i] = a + rand() % (b - a);
+//for (int i = 0; i < size; i++)
+//    cout << mass[i] << " ";
+//cout << endl;
+//cout << "Введите порог для суммирования - ", cin >> level;
+//while (level < a) 
+//    cout << "Введите порог для суммирования - ", cin >> level;
+//
+//for (int i = 0; i < size; i++) {
+//    if (level > mass[i]) {
+//        s += mass[i];
+//    }
+//}
+//cout << s << " - сумма всех чисел, что меньше - " << level;
+//for (int i = 0; i < size; i++)
+//    cout << mass[i] << " ";
+
+
+//int money, sum = 0;
+//string min1, max1;
+//const size_t size = 12;
+//string values[size]{ "Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" };
+//const size_t size1 = 12;
+//int values1[size1], a ,b;
+//for (int i = 0; i < size1; i++) {
+//    while (values1[i] < 0)
+//        cout << "Введите прибыль за " << values[i] << " : ", cin >> values1[i];
+//    sum += values1[i];   
+//}
+//int max = INT_MIN, min = INT_MAX;
+//cout << "Введите диапазон,\nот - ",cin >> a;
+//cout << "до - ", cin >> b;
+//while (a > b) {
+//    cout << "Введите диапазон,\nот - ", cin >> a;
+//    cout << "до - ", cin >> b;
+//}
+//for (int i = a-1; i < b; i++) {
+//    if (min > values1[i]) {
+//        min = values1[i];
+//        min1 = values[i];
+//    }
+//    if (max < values1[i]) {
+//        max = values1[i];
+//        max1 = values[i];
+//    }
+//}
+//cout << "Общая прибыль составляет: " << sum << endl;
+//cout << "Максимальная прибыль за " << max1 << ": " << max << endl;
+//cout << "минимальная прибыль за " << min1 << ": " << min << endl;
+
+//vector<int> num;
+//int size, temp, sumNeg = 0, negSum = 0, workMM=1, workEven=1, j = 0;
+//cout << "Введите величину массива - ", cin >> size;
+//while (size == 0)
+//    cout << "Введите величину массива - ", cin >> size;
+//for (int i = 0; i < size; i++)
+//    num.push_back(-50 + rand() % (50 - (-50))) ;
+//for(int i = 0; i < size; i++)
+//    for (int j = 0; j < size; j++) {
+//        if (num[i] < num[j]) {
+//            temp = num[j];
+//            num[j] = num[i];
+//            num[i] = temp;
+//        }
+//        
+//    }
+//for (int i = 0; i < num.size(); i++) {
+//    cout << num[i] << " ";
+//    if (num[i] < 0) {
+//        sumNeg += num[i];
+//        j++;
+//    }
+//    if (num[i] % 2 == 0 && num[i] != 0) {
+//        workEven *= num[i];
+//    }
+//}
+//for (int i = 1; i < num.size() - 1; i++) {
+//    workMM *= num[i];
+//}
+//for (int i = 1; i < j - 1; i++) {
+//    negSum += num[i];
+//}
+//cout <<"\nСумма отрицательных - "<< sumNeg;
+//cout << "\nПроизведение чисел между MIN и MAX - " << workMM;
+//cout << "\nПроизведение четных элементов - " << workEven;
+//cout << "\nСумма элементов между первым и последним отрицательным числом - " << negSum;
+
+
+
+#pragma endregion
+#pragma region NEW INF
+//vector<int> numbers = { 1, 2, 3 ,4 };
+
+//for(int i = 0; i < 10; i++)            ЗАПОЛНЕНИЕ МАССИВА ЦИКЛОМ
+//numbers.push_back(rand() % 100);
+
+
+ 
+//cout << "\nОригинальный вектор: ";
+//for (int i = 0; i < numbers.size(); i++)
+//    cout << numbers[i] << " ";
+//numbers.push_back(10); ВСТАВЛЯЕТ 10 В КОНЕЦ МАССИВА ПОСЛЕ 4
+//numbers.push_back(15); ВСТАВЛЯЕТ 15 В КОНЕЦ МАССИВА ПОСЛЕ 10
+
+// - удалить элемент из вектора
+//int index = 0 // - Позиция элемента для удаления
+//numbers.erase(numbers.begin() + index);
+
+
+//vector<int> ultra, ultra1;
+//int j = 0, size = 10, temp;
+//for (int i = 0; i < size; i++) {
+//    ultra.push_back(rand() % 10);
+//    ultra1.push_back(rand() % 10);
+//}
+//for (int i = 0; i < ultra.size(); i++) {
+//    cout << ultra[i] << " ";
+//}
+//cout << endl;
+//for (int i = 0; i < ultra.size(); i++) {
+//    cout << ultra1[i] << " ";
+//}
+//cout << endl;
+//for (int i = 0; i < ultra1.size(); i++) {
+//    ultra.push_back(ultra1[i]);
+//    
+//}
+//for (int i = 0; i < ultra.size()-10; i++) {
+//    ultra1.push_back(ultra[i]);
+//}
+//for (int i = 0; i < ultra.size(); i++) {
+//    cout << ultra[i] << " ";
+//}
+//cout << endl;
+//for (int i = 0; i < ultra1.size(); i++) {
+//    cout << ultra1[i] << " ";
+//}
+//cout << endl;
+//for(int i = 0; i < ultra1.size(); i++)
+//    for (int j = 0; j < ultra1.size(); j++) {
+//        if (ultra[i] < ultra[j]) {
+//            temp = ultra[j];
+//            ultra[j] = ultra[i];
+//            ultra[i] = temp;
+//        }
+//        if (ultra1[i] < ultra1[j]) {
+//            temp = ultra1[j];
+//            ultra1[j] = ultra1[i];
+//            ultra1[i] = temp;
+//        }
+//        
+//    }
+//for (int i = 0; i < ultra.size(); i++) {
+//    cout << ultra[i] << " ";
+//}
+//cout << endl;
+//for (int i = 0; i < ultra.size(); i++) {
+//    cout << ultra1[i] << " ";
+//}
+//cout << endl;
+//for (int i = 0; i < ultra.size(); i++) 
+//    for (int j = 0; j < ultra1.size(); j++) {
+//        if (ultra[i] == ultra1[j]) {
+//            ultra1.erase(ultra1.begin() + j);
+//        }
+//    }
+//cout << "\n " << ultra1.size();
+//for (int i = 0; i < ultra1.size(); i++)
+//    cout << ultra1[i] << " ";
+#pragma endregion
+
+
+
+
 return 0;
 }
