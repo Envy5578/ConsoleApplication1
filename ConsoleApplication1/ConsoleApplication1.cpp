@@ -24,7 +24,7 @@ void printMinMax(int* array) {
     for (int i = 0; i < 2 ; i++)
         cout << array[i] << " ";
 }
-
+int pro(int lol);
 vector<int> sortUp(vector<int> array) {
     int temp;
     
