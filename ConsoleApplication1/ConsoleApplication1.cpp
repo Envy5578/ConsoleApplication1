@@ -13,16 +13,35 @@
 #include <dos.h>
 #include <math.h>
 #include <vector>
+#include <sstream>
 using namespace std; // рабочее пространство, чтобы не писать каждый раз std
-
-void printVect(vector<int> array) {
+int countBub{};
+int countSel{};
+void print(vector<int> array) {
     for (int i = 0; i < array.size(); i++)
         cout << array[i] << " ";
     cout << endl;
 }
-void printMinMax(int* array) {
-    for (int i = 0; i < 2 ; i++)
-        cout << array[i] << " ";
+//void print(int* array, int size, string change) {
+//    for (int i = 0; i < size ; i++)
+//        cout << array[i] << " ";
+//}
+void print(int* array, int size) {
+    for (int i = 0; i < size; i++)
+        cout << *(array + i) << " ";
+}
+
+vector<int> low(vector<int>array) {
+    vector<int> arr ;
+    for (int i = 0; i < array.size(); i++) {
+        if (array[i] == 2 || array[i] == 3) {
+            arr.push_back(array[i]);
+        }
+        else if (array[i] % 2 != 0 && array[i] % 3 != 0) {
+            arr.push_back(array[i]);
+        }
+    }
+    return arr;
 }
 int propiska(int lol);
 vector<int> sortUp(vector<int> array) {
@@ -52,9 +71,9 @@ vector<int> sortDown(vector<int> array) {
     
     return array;
 }
-int* minMax(vector<int> array) {
+vector<int> minMax(vector<int> array) {
     int max = INT_MIN, min = INT_MAX;
-    int local[2];
+    vector<int>minMax;
     for (int i = 0; i < array.size(); i++) {
         if (max < array[i]) {
             max = array[i];
@@ -62,43 +81,508 @@ int* minMax(vector<int> array) {
             min = array[i];
         }
     }
-    //cin >> temp;
-    local[0] = max;
-    local[1] = min;
-    cout <<"min - " << local[0] << "\n" << local[1] << " \n";
+    minMax.push_back(min);
+    minMax.push_back(max);
     
-    return local;
+    return minMax;
 }
-
-int* returnAr()
+int factorial(int array) {  
+    int a;
+    cin >> a;
+    if (array == 0)
+        return 1;
+    if (array > 0) {        
+        return array * factorial(array-1);
+    }    
+}
+int outIn(int n, int b) {
+    cout << n << " ";
+    n++;
+    if (n <= b) {
+        return outIn(n, b);
+    }
+    else
+        return -1;        
+}
+int sumNumb(int a, int sum) {
+    int temp = 0;
+    temp += a % 10;
+    a /= 10;
+    sum += temp;
+    if (a > 0) {
+        return sumNumb(a, sum);
+    }
+    else {
+        return sum;
+    }
+}
+int smallPos(int list[], int startPosition, int listLength)
 {
-    int local[2];
-    local[0] = 1;
-    local[1] = 2;
+    int smallestPosition = startPosition;
 
-    return local;
+    for (int i = startPosition; i < listLength; i++)
+    {
+        if (list[i] < list[smallestPosition])
+            smallestPosition = i;
+    }
+    return smallestPosition;
 }
 
+void sortSel(int list[], int listLength)
+{
+    countSel = 0;
+    for (int i = 0; i < listLength; i++)
+    {
+        int smallestPosition = smallPos(list, i, listLength);
+        swap(list[i], list[smallestPosition]);
+        countSel++;
+    }
+    return;
+}
+int* sortBubble(int array[], int size) {
+    countBub = 0;
+    int temp;
+    for(int i = 0; i < size; i++)
+        for (int j = 0; j < size; j++) {
+            if (array[i] > array[j]) {
+                temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                countBub++;
+            }
+        }
+    return array;
+}
+//int* filling(int array[], int size) {
+//    for (int i = 0; i < size; i++)
+//        array[i] = rand() % 50;
+//    return array;
+//}
+vector <int> filling(vector <int> array) {    
+    for (int i = 0; i < array.size(); i++) 
+        array[i] = rand() % 1000;   
+    return array;
+}
+
+vector <int> lockGame(vector<int> wheel, vector<int> cirle, vector<int> updown) {
+    
+    for (size_t i = 0; i < 4; i++) {
+        if (updown[i] != 0) {
+            wheel[i] += cirle[i];
+            if (wheel[i] > 9) {
+                wheel[i] %= 10;
+            }
+        }
+        else {
+            wheel[i] -= cirle[i];
+            if (wheel[i] < 0) {
+                wheel[i] += 10;
+            }
+        }
+    }
+    return wheel;
+}
+int longNum(double array, int sum) {
+    sum++;
+    array /= 10;
+    if (array > 0)
+        return longNum(array, sum);
+    else
+        return sum;
+}
+double longNum(int array, double sum) {
+    sum++;
+    array /= 10;
+    if (array > 0)
+        return longNum(array, sum);
+    else
+        return sum;
+}
+vector <int> lineSearch(vector<int> array, int key) {
+ 
+    vector <int> help;
+    int h = 0;
+    for (int i = 0; i < array.size(); i++) {
+        if (array[i] == key) {
+            help.push_back(i + 1);
+        }
+    }
+    return help;
+}
+int binarSearch(vector <int> array, int size, int key) {
+    bool flag = false;
+    int l = 0, r = size, mid, count = 0;
+    while ((l <= r) && (flag != true)) {
+        mid = (l + r) / 2; // считываем срединный индекс отрезка [l,r]
+
+        if (array[mid] == key) flag = true; //проверяем ключ со серединным элементом
+        if (array[mid] > key) r = mid - 1; // проверяем, какую часть нужно отбросить
+        else l = mid + 1;
+    } return mid;
+}
+int trans(int array) {
+    int sum = 0;
+    int power = 0;
+    do {
+        if (array % 10 == 1) {
+            sum += pow(2, power);
+        }
+        power++;
+        array /= 10;
+    } while (array > 0);
+
+    return sum;
+}
+int rate(int array, int ex) {
+    array = pow(array, ex);
+    return array;
+}
+int sumDia(int a, int b) {
+    int sum = 0;
+    for (int i = a; i < b; i++) {
+        sum += i;
+    }
+    return sum;
+}
+void change(int &a, int &b) {
+    a ^= b ^= a ^= b;
+}
+void filling(int *array, int size) {
+    for (int i = 0; i < size; i++) {
+        *(array + i) = rand() % 100;
+    }    
+}
+int sumLuck(int *array) {
+    int sum = 0;
+    for (int i = 0; i < 10; i++) {
+        sum += *(array + i);
+    }
+    return sum;
+}
+
+enum menuItems
+{
+    ENTER_DATA = 1,
+    OUTPUT_DATA = 2,
+    SORT_BY_MOBILE_NUM = 3,
+    SORT_BY_TEL_NUM = 4,
+    QUIT = 5
+};
 int main() // главная функция
 {
     SetConsoleOutputCP(1251);
     SetConsoleCP(1251);
     setlocale(LC_ALL, "Russian");
-    srand(time(NULL));
+    srand(time(NULL));   
+#pragma region Задача с замком и колесиками
+ /*   vector <int> wheel(4), cirle(4), updown(4), temp;
+    for (size_t i = 0; i < 4; i++) {
+        cout << "Введите положение " << i + 1 << " колесика\n", cin >> wheel[i];
+        cout << "\nВведите сколько раз крутить " << i + 1 << " колесика\n", cin >> cirle[i];
+        cout << "\nВведите в какую сторону крутить " << i + 1 << " колесико\n0 - вниз\n1 - вверх\n", cin >> updown[i];
+    }
+    printVect(lockGame(wheel, cirle, updown));*/
+#pragma endregion
 
-    vector<int> popa, lopa;
-    for (int i = 0; i < 10; i++)
-        popa.push_back(rand() % 100);
-    printVect(popa);
+#pragma region Указатели
+    //int a = rand()%10, b=rand()%10;
+    //int* ptr = &a;
+    //int* ptr1 = &b;
+    //cout << a << " &&?? " << b << endl;
+    //if (*ptr > *ptr1)
+    //    cout << *ptr;
+    //else
+    //    cout << *ptr1;
+
+ /*   int a = -10 + rand() % (10 - (-10) + 1), g = 0;
+        int* x = &a;
+        cout << a << endl;
+    int* f = &g;
+    if (*f <= *x)
+        cout << " + ";
+    else
+        cout << " - ";*/
+    //int a = rand() % 10, b = rand() % 10;
+    //int* ptr = &a;
+    //int* ptr1 = &b;
+    //cout << *ptr << " < - > " << *ptr1 << endl;
+    //ptr = &b;
+    //ptr1 = &a;
+    //cout << *ptr << " < - > " << *ptr1 << endl;
+    //int a, b, x;
+    //int* ptr = &a, * ptr1 = &b, *ptr3 = &x;
+
+    //cout << "Введите первое число - ", cin >> *ptr;
+    //cout << "Введите второе число - ", cin >> *ptr1;
+    //cout << "Выберите действие\n1. Сложение\n2. Умножение\n3. Деление\n4. Вычитание\n", cin >> *ptr3;
+    //while (*ptr3 > 0 && *ptr3 < 5) {
+    //    switch (*ptr3)
+    //    {
+    //    case 1: {
+    //        cout << *ptr << " + " << *ptr1 << " = " << *ptr + *ptr1;
+    //        exit(0);
+    //    }
+    //    case 2: {
+    //        cout << *ptr << " * " << *ptr1 << " = " << *ptr * *ptr1;
+    //        exit(0);
+    //    }
+    //    case 3: {
+    //        cout << *ptr << " : " << *ptr1 << " = " << *ptr / *ptr1;
+    //        exit(0);
+    //    }
+    //    case 4: {
+    //        cout << *ptr << " - " << *ptr1 << " = " << *ptr - *ptr1;
+    //        exit(0);
+    //    }
+    //    }
+    //}
+    //int a = 5, b = 10;
+    //int* ptr, * ptr1;
+    //cout << a << " <-> " << b << endl;
+    //change(a, b);
+    //cout << a << " <-> " << b;
+    int size, x, g = 0;
+    cin >> size;
+    int* mass = new int[size];
+    int* ssam = new int[size - 1];
+    filling(mass, size);
+    print(mass, size);
+    cout << "\nВыберите элемент\n", cin >> x;
+    size--;
+    for (int i = 0; i < size; i++) {
+        if (*(mass + i) != x) {
+            *(ssam + i) = *(mass + i);
+            g++;
+        }
+        else {
+            swap(*(ssam + i), *(ssam + size));
+            *(ssam + i) = *(mass + i);
+        }
+    }
     cout << endl;
-    lopa = sortUp(popa);
-    printVect(lopa);
-    cout << endl;
-    int* nar;
-    nar = minMax(lopa);
-    printMinMax(nar);
-   /* int* newArray;
-    newArray = minMax(array);*/
+    print(ssam, size);
+    delete[] mass;
+    /*cout << "\n" <<sumLuck(mass);*/
+
+
+#pragma endregion
+#pragma region 09.02 DZ
+   /* const int n = 5;
+    int userChoice, mobTel[n], tel[n], temp;
+        bool isDataEntered = false;
+    do {
+        cout << "Your choice:\n";
+        cout << "1 — enter data\n";
+        cout << "2 — output data\n";
+        cout << "3 — sort by mobile number\n";
+        cout << "4 — sort by tel.number\n";
+        cout << "5 — quit\n";
+        cin >> userChoice;
+        switch (userChoice) {
+        case ENTER_DATA:
+        {
+            cout << "Please, enter data for each "
+                "customer\n";
+            isDataEntered = true;
+            for (int i = 0; i < n; i++)
+            {
+                cout << "Input mobile number for ";
+                cout << i + 1 << " customer:\n";
+                cin >> mobTel[i];
+                cout << "Input tel. number for ";
+                cout << i + 1 << " customer:\n";
+                cin >> tel[i];
+            }
+
+            break;
+        }
+        case OUTPUT_DATA:
+        {
+            if (isDataEntered)
+            {
+              
+                    cout << "Customer's data:\n";
+                cout << "Cust.ID\tMobile number\tTel."
+                    "number\n";
+                for (int i = 0; i < n; i++)
+                {
+                    cout << i + 1 << " " << mobTel[i];
+                    cout << " " << tel[i] << "\n";
+                }
+            }
+            else
+            {
+                cout << "There is no data!" << "\n";
+                cout << "Please, enter data for each "
+                    "customer at first\n";
+            }
+
+            break;
+        }
+        case SORT_BY_MOBILE_NUM:
+        {
+            if (isDataEntered)
+            {
+                cout << "Sorting data by mobile "
+                    "number ....\n";
+                for (int i = 1; i < n; ++i)
+                {
+                    for (int r = 0; r < n - i; r++)
+                    {
+                        if (mobTel[r] < mobTel[r + 1])
+                        {
+                            temp = mobTel[r];
+                            mobTel[r] = mobTel[r + 1];
+                            mobTel[r + 1] = temp;
+                          
+                                temp = tel[r];
+                            tel[r] = tel[r + 1];
+                            tel[r + 1] = temp;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                cout << "There is no data!" << "\n";
+                cout << "Please, enter data for "
+                    "each customer at first\n";
+            }
+            break;
+        }
+        case SORT_BY_TEL_NUM:
+        {
+            if (isDataEntered)
+            {
+                cout << "Sorting data by tek. "
+                    "number ....\n";
+                for (int i = 1; i < n; ++i)
+                {
+                    for (int r = 0; r < n - i; r++)
+                    {
+                        if (tel[r] < tel[r + 1])
+                        {
+                            temp = tel[r];
+                            tel[r] = tel[r + 1];
+                            tel[r + 1] = temp;
+
+                            temp = mobTel[r];
+                                                          
+                                mobTel[r] = mobTel[r + 1];
+                            mobTel[r + 1] = temp;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                cout << "There is no data!" << "\n";
+                cout << "Please, enter data for each "
+                    "customer at first\n";
+            }
+            break;
+        }
+        case QUIT:
+        {
+            cout << "See you!";
+            break;
+        }
+        default:
+            cout << "Wrong menu item!";
+        }
+    } while (userChoice != 5);*/
+
+
+
+//const size_t size = 10;
+//int temp, mass[size], count;
+//for (int i = 0; i < size; i++)
+//    mass[i] = rand() % 10;
+//for (int i = 1; i < size; i++) {
+//    count = 0;
+//    for (int j = 0; j < size - 1; j++) {
+//        if (mass[j] > mass[j + 1]) {
+//            temp = mass[j];
+//            mass[j] = mass[j + 1];
+//            mass[j + 1] = temp;
+//            count++;
+//        }
+//    }
+//    if (count == 0) {
+//        cout << "Сортировка закончена\n";
+//        cout << i << " - количество шагов\n";
+//        break;
+//    }
+//}
+//for (int i = 0; i < size; i++)
+//    cout << mass[i] << " ";
+
+//const size_t size = 1000;
+//int bubble[size], sel[size];
+//filling(bubble, size);
+//filling(sel, size);
+//
+//printMass(bubble, size);
+//cout << endl;
+//printMass(sel, size);
+//
+//sortBubble(bubble, size);
+//sortSel(sel, size);
+//cout << endl;
+//printMass(bubble, size);
+//cout << endl;
+//printMass(sel, size);
+//cout << endl;
+//cout << countSel << " - счетчик выбора\n" << countBub << " - счетчик пузырьком\n";
+
+
+
+
+#pragma endregion
+
+#pragma region Поиски
+//const size_t size = 1000;
+//vector <int> lock(size), help;
+//int key, a;
+//for (int i = 0; i < lock.size(); i++)
+//    lock[i] = rand() % 1000;
+//print(lock);
+//
+//help = sortUp(lock);
+//print(help);
+//cin >> key;
+//a = binarSearch(lock, size, key);
+//cout << a;
+//int temp;
+//cin >> temp; 
+//cout << trans(temp);
+
+#pragma endregion
+
+#pragma region Лексический анализатор
+
+//vector<string> words;
+//stringstream stringStream("int x = 0");
+//string word;
+//while (getline(stringStream, word, ' '))
+//{
+//    words.push_back(word);
+//}
+
+
+
+#pragma endregion
+#pragma region Перегрузка
+
+//int a,b;
+//a = 10;
+//b = 30;
+//cout << rate(a, 2)<<endl;
+//cout << sumDia(10, 30);
+
+        
+    
+#pragma endregion
 #pragma region ДЗ
 
     //cout << "Melody!\n";
@@ -2295,14 +2779,43 @@ int main() // главная функция
 //    switch (change) {
 //    case 1: {
 //        cout << "\nВведите желаемый доход - ", cin >> zp;
-//        cout << "Введите количество опозданий - ", cin >> out;
+//        cout << "\nВведите количество опозданий - ", cin >> out;
 //        out /= 3 * 20;
 //        string = (zp + out) * 2;
-//        cout << "Количество строк, которые нужно написать с учетом опозданий - " << string;
+//        cout << "\nКоличество строк, которые нужно написать с учетом опозданий - " << string;
 //    }case 2: {
+//        cout << "\nСколько строк написал Вася? - ", cin >> string;
+//        while (string != 0)
+//            cin >> string;
+//        cout << "\nЖелаемый доход Васи? - ", cin >> zp;
+//        while (zp != 0)
+//            cin >> zp;
+//        string = string / 2;
+//        if (string < zp) {
+//            cout << "\nВасе нужно написать больше строк\n";
+//            cout << (zp - string) * 2 << "\nСтолько нужно дописать! И чтобы без опозданий\n";
+//        }
+//        else if (string == zp) {
+//            cout << "\nОпаздывать нельзя. Все ровно\n";
+//        }
+//        else if (string > zp) {
+//            cout << "Вася может опоздать - " << (string - zp) / 20;
+//        }
 //
 //    }case 3: {
-//
+//        cout << "\nВведите количество строк - ", cin >> string;
+//        cout << "\nВведите количество опозданий - ", cin >> out;
+//        out = (out / 3) * 20;
+//        string /= 2;
+//        if (string < out) {
+//            cout << "\nУ Васи слишком много опозданий, ему нужно их оплатить - " << out - string;
+//        }
+//        else if (string == out) {
+//            cout << "\nВася заработал ровно столько, сколько опоздал на работу";
+//        }
+//        else if (string > out) {
+//            cout << "\nВася заработал - " << string - out;
+//        }
 //    }
 //    }
 //}
@@ -2518,7 +3031,99 @@ int main() // главная функция
 //    cout << ultra1[i] << " ";
 #pragma endregion
 
+#pragma region 01.03.2023 CLASSWORK
+//const size_t size = 5;
+//int arr[size][size];
+//int sumColumn[size], sumString[size], temp1=0, temp2=0;
+//int sum = 0, midlWork = 0, count = 0, min = INT_MAX, max = INT_MIN, stringSum = 0, columnSum = 0;
+//for(int i = 0; i < size; i++)
+//    for (int j = 0; j < size; j++) {
+//        arr[i][j] = rand() % 10;
+//    }
+//    for (int i = 0; i < size;i++)
+//        for (int j = 0; j < size; j++) {
+//            if (arr[i][j] > max)
+//            max = arr[i][j];
+//         if (arr[i][j] < min)
+//            min = arr[i][j];
+//        sum += arr[i][j];
+//        midlWork += arr[i][j];
+//        count++;
+//    }
+//    for (int i = 0; i < size; i++) {
+//        for (int j = 0; j < size; j++) {
+//            temp1 += arr[j][i];
+//            if (j == size-1) {
+//                sumColumn[i] = temp1;
+//                columnSum += temp1;
+//            }
+//            temp2 += arr[i][j];
+//            if (j == size-1) {
+//                sumString[i] = temp2;
+//                stringSum += temp2;
+//            }
+//        }
+//        temp1 = 0, temp2 = 0;
+//    }
+//    cout << "СНАЧАЛО СТРОКА, А ПОТОМ КОЛОННА\n";
+//    printMass(sumString, size);
+//    cout << endl;
+//    printMass(sumColumn, size);
+//    cout << "\n---------------------------------\n";
+//    cout << columnSum << " - сумма столбцов\n";
+//    cout << stringSum << " - сумма строк\n";
+//
+//midlWork /= count;
+//for (int i = 0; i < size; i++) {
+//    for (int j = 0; j < size; j++) {
+//        cout << arr[i][j] << " ";
+//    }
+//    cout << endl;
+//}
+//cout << "\n" << sum << " - сумма всех чисел";
+//cout << "\n" << size * size << " - количество чисел в массиве";
+//cout << "\n" << midlWork << " - среднее арифметическое";
+//cout << "\n" << max << " - максимальное\n" << min << " - минимальное";
 
+//const size_t size = 5;
+//const size_t ezis = 10;
+//
+//int one[size][ezis], two[size][size], a = 0, b = 1;
+//for (int i = 0; i < size; i++)
+//    for (int j = 0; j < ezis; j++)
+//        one[i][j] = 0 +(rand() % (50 - 0 + 1));
+//
+//
+//
+//    
+//for (int i = 0; i < 5; i++) {
+//    for (int j = 0; j < 5; j++,a++,b++) 
+//        two[i][j] = one[i][j + a] + one[i][j + b];    
+//    a = 0;
+//    b = 1;
+//}
+//
+//
+//
+//
+//for (int i = 0; i < size; i++) {
+//    for (int j = 0; j < ezis; j++) {
+//        cout << one[i][j] << " ";
+//    }
+//    cout << endl;
+
+//cout << " \n-----------------\n";
+//for (int i = 0; i < size; i++) {
+//    for (int j = 0; j < size; j++) {
+//        cout << two[i][j] << " ";
+//    }
+//    cout << endl;
+//}
+#pragma endregion
+
+#pragma region 03.03.2023 CLASSWORK
+
+#pragma endregion
 
 
 return 0;
